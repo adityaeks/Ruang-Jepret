@@ -247,7 +247,8 @@
 
                                 <!-- Hover Overlay with Action Buttons -->
                                 <div
-                                    class="absolute inset-0 bg-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl flex items-center justify-center gap-3 hover-overlay">
+                                    class="absolute inset-0 bg-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl flex items-center justify-center hover-overlay">
+                                    <div class="flex items-center justify-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                     <button id="desktop-accept-btn"
                                         class="px-4 py-2 bg-white text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-gray-100 flex items-center gap-1.5 shadow-lg border border-gray-300">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,52 +267,21 @@
                                         </svg>
                                         Ulang
                                     </button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Photo Actions -->
-                            <div class="grid grid-cols-2 gap-2 sm:gap-3">
-                                <button id="download-all-btn"
-                                    class="px-3 sm:px-4 py-2 sm:py-3 bg-black text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black/90 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Template Selection Button -->
+                            <div class="flex justify-center">
+                                <button id="select-template-btn"
+                                    class="px-6 sm:px-8 py-3 sm:py-4 bg-gray-400 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 text-sm sm:text-base"
+                                    disabled>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
                                         </path>
                                     </svg>
-                                    <span class="hidden sm:inline">Download Semua</span>
-                                    <span class="sm:hidden">Semua</span>
-                                </button>
-
-                                <button id="download-btn"
-                                    class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                        </path>
-                                    </svg>
-                                    <span class="hidden sm:inline">Download Foto</span>
-                                    <span class="sm:hidden">Download</span>
-                                </button>
-
-                                <button id="share-btn"
-                                    class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
-                                        </path>
-                                    </svg>
-                                    Share
-                                </button>
-
-                                <button id="retake-btn"
-                                    class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
-                                        </path>
-                                    </svg>
-                                    <span class="hidden sm:inline">Ambil Ulang</span>
-                                    <span class="sm:hidden">Ulang</span>
+                                    Pilih Template
                                 </button>
                             </div>
                         </div>
@@ -336,7 +306,8 @@
 
                         <!-- Hover Overlay with Action Buttons -->
                         <div
-                            class="absolute inset-0 bg-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl flex items-center justify-center gap-3 hover-overlay">
+                            class="absolute inset-0 bg-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl flex items-center justify-center hover-overlay">
+                            <div class="flex items-center justify-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             <button id="mobile-accept-btn"
                                 class="px-4 py-2 bg-white text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-gray-100 flex items-center gap-1.5 shadow-lg border border-gray-300">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,52 +326,21 @@
                                 </svg>
                                 Ulang
                             </button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Mobile Photo Actions -->
-                    <div class="grid grid-cols-2 gap-2 sm:gap-3">
-                        <button id="mobile-download-all-btn"
-                            class="px-3 sm:px-4 py-2 sm:py-3 bg-black text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black/90 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Mobile Template Selection Button -->
+                    <div class="flex justify-center">
+                        <button id="mobile-select-template-btn"
+                            class="px-6 sm:px-8 py-3 sm:py-4 bg-gray-400 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 text-sm sm:text-base"
+                            disabled>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
                                 </path>
                             </svg>
-                            <span class="hidden sm:inline">Download Semua</span>
-                            <span class="sm:hidden">Semua</span>
-                        </button>
-
-                        <button id="mobile-download-btn"
-                            class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            <span class="hidden sm:inline">Download Foto</span>
-                            <span class="sm:hidden">Download</span>
-                        </button>
-
-                        <button id="mobile-share-btn"
-                            class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
-                                </path>
-                            </svg>
-                            Share
-                        </button>
-
-                        <button id="mobile-retake-btn"
-                            class="px-3 sm:px-4 py-2 sm:py-3 bg-white border border-black text-black font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
-                                </path>
-                            </svg>
-                            <span class="hidden sm:inline">Ambil Ulang</span>
-                            <span class="sm:hidden">Ulang</span>
+                            Pilih Template
                         </button>
                     </div>
                 </div>
@@ -420,6 +360,9 @@
         </div>
     </div>
 
+    <!-- Frame Handler JavaScript -->
+    <script src="{{ asset('js/frame-handler.js') }}"></script>
+
     <!-- Camera JavaScript -->
     <script>
         class PhotoBooth {
@@ -432,6 +375,10 @@
                 this.capturedPhotos = []; // Array untuk menyimpan multiple foto
                 this.isCapturing = false; // Flag untuk mencegah multiple capture
                 this.isMirrored = false; // Flag untuk mirror effect
+                this.previewCanvas = null; // Canvas for template preview (reused for download)
+
+                // Initialize Frame Handler
+                this.frameHandler = new FrameHandler();
 
                 this.initializeElements();
                 this.bindEvents();
@@ -465,23 +412,20 @@
                 this.shutterEffect = document.getElementById('shutter-effect');
                 this.cameraContainer = this.video.parentElement;
 
+                // Template selection button
+                this.selectTemplateBtn = document.getElementById('select-template-btn');
+                this.mobileSelectTemplateBtn = document.getElementById('mobile-select-template-btn');
+
                 // Mobile elements
                 this.mobilePhotoPreview = document.getElementById('mobile-photo-preview-content');
                 this.mobilePhotoGallery = document.getElementById('mobile-photo-gallery');
                 this.mobilePhotoCanvas = document.getElementById('mobile-photo-canvas');
-                this.mobileDownloadBtn = document.getElementById('mobile-download-btn');
-                this.mobileDownloadAllBtn = document.getElementById('mobile-download-all-btn');
-                this.mobileShareBtn = document.getElementById('mobile-share-btn');
-                this.mobileRetakeBtn = document.getElementById('mobile-retake-btn');
 
                 // Initialize dropdown values
                 this.photoRatio = '4:3'; // Default to 4:3 since that's what's selected
                 this.photoCount = 3; // Default to 3 since that's what's selected
                 this.photoDelay = 3; // Default to 3 seconds
 
-                console.log(
-                    `Initialized - Photo ratio: ${this.photoRatio}, Photo count: ${this.photoCount}, Delay: ${this.photoDelay}`
-                    );
 
                 // Set initial gallery aspect ratio
                 this.updateGalleryAspectRatio();
@@ -496,16 +440,10 @@
                 this.switchCameraBtn.addEventListener('click', () => this.switchCamera());
                 this.closeCameraBtn.addEventListener('click', () => this.closeCamera());
                 this.mirrorBtn.addEventListener('click', () => this.toggleMirror());
-                this.downloadBtn.addEventListener('click', () => this.downloadPhoto());
-                this.downloadAllBtn.addEventListener('click', () => this.downloadAllPhotos());
-                this.shareBtn.addEventListener('click', () => this.sharePhoto());
-                this.retakeBtn.addEventListener('click', () => this.retakePhoto());
 
-                // Mobile event bindings
-                this.mobileDownloadBtn.addEventListener('click', () => this.downloadPhoto());
-                this.mobileDownloadAllBtn.addEventListener('click', () => this.downloadAllPhotos());
-                this.mobileShareBtn.addEventListener('click', () => this.sharePhoto());
-                this.mobileRetakeBtn.addEventListener('click', () => this.retakePhoto());
+                // Template selection button event bindings
+                this.selectTemplateBtn.addEventListener('click', () => this.selectTemplate());
+                this.mobileSelectTemplateBtn.addEventListener('click', () => this.selectTemplate());
 
                 // Mobile hover button event bindings
                 const mobileAcceptBtn = document.getElementById('mobile-accept-btn');
@@ -568,7 +506,6 @@
                             // Photo ratio dropdown
                             this.photoRatio = value;
                             this.photoRatioBtn.textContent = value;
-                            console.log(`Photo ratio updated to: ${value}`);
 
                             // Update gallery aspect ratio
                             this.updateGalleryAspectRatio();
@@ -584,12 +521,10 @@
                             // Photo count dropdown
                             this.photoCount = parseInt(value);
                             this.photoCountBtn.textContent = value;
-                            console.log(`Photo count updated to: ${value}`);
                         } else if (dropdown.querySelector('#photo-delay-btn')) {
                             // Photo delay dropdown
                             this.photoDelay = parseInt(value);
                             this.photoDelayBtn.textContent = value + 's';
-                            console.log(`Delay updated to: ${value} seconds`);
                         }
 
                         // Update active state
@@ -716,13 +651,11 @@
 
                 // Show overlay for all ratios
                 this.aspectRatioOverlay.classList.remove('hidden');
-                console.log(`Showing overlay for ratio: ${this.photoRatio}`);
 
                 // Create overlay based on aspect ratio with small delay to ensure container is rendered
                 setTimeout(() => {
                     const overlay = this.createAspectRatioOverlay();
                     this.aspectRatioOverlay.appendChild(overlay);
-                    console.log(`Aspect ratio overlay updated for ratio: ${this.photoRatio}`);
                 }, 100);
             }
 
@@ -735,13 +668,9 @@
                 const containerWidth = cameraContainer.offsetWidth;
                 const containerHeight = cameraContainer.offsetHeight;
 
-                console.log(`Container dimensions: ${containerWidth}x${containerHeight}`);
-
                 // Get video dimensions
                 const videoWidth = this.video.videoWidth;
                 const videoHeight = this.video.videoHeight;
-
-                console.log(`Video dimensions: ${videoWidth}x${videoHeight}`);
 
                 // Calculate the actual crop area that will be used in photo capture
                 const [targetWidth, targetHeight] = this.getAspectRatioDimensions();
@@ -764,8 +693,6 @@
                     cropY = (videoHeight - cropHeight) / 2;
                 }
 
-                console.log(`Crop area: ${cropWidth}x${cropHeight} at (${cropX}, ${cropY})`);
-
                 // Calculate overlay dimensions to match the crop area
                 const scaleX = containerWidth / videoWidth;
                 const scaleY = containerHeight / videoHeight;
@@ -774,10 +701,6 @@
                 const overlayHeight = cropHeight * scaleY;
                 const overlayX = cropX * scaleX;
                 const overlayY = cropY * scaleY;
-
-                console.log(
-                    `Overlay dimensions for ${this.photoRatio}: ${overlayWidth}x${overlayHeight} at (${overlayX}, ${overlayY})`
-                    );
 
                 // Create frame border
                 const frame = document.createElement('div');
@@ -897,8 +820,6 @@
                 const photoCount = this.photoCount;
                 const delaySeconds = this.photoDelay;
 
-                console.log(`Photo count: ${photoCount}, Delay: ${delaySeconds} seconds`);
-
                 // Show photo preview immediately for first photo
                 this.showPhotoPreview();
 
@@ -962,14 +883,15 @@
                     }
                 }
 
+                // Update template button status after capturing photos
+                this.updateTemplateButtonStatus();
+
                 this.isCapturing = false;
             }
 
             async runCountdown() {
                 this.countdown.classList.remove('hidden');
                 let count = this.photoDelay; // Use the selected delay value
-
-                console.log(`Starting countdown from: ${count} seconds`);
 
                 // Show the initial count immediately
                 this.countdownNumber.textContent = count;
@@ -995,8 +917,6 @@
             showCountdown() {
                 this.countdown.classList.remove('hidden');
                 let count = this.photoDelay; // Use the selected delay value
-
-                console.log(`Starting countdown from: ${count} seconds`);
 
                 // Show the initial count immediately
                 this.countdownNumber.textContent = count;
@@ -1068,12 +988,11 @@
                     // Pastikan file shutter.mp3 sudah ditempatkan di folder public/
                     const audio = new Audio('/shutter.mp3');
                     audio.volume = 0.5; // Set volume to 50%
-                    audio.play().catch(error => {
-                        console.log('Audio playback failed:', error);
+                    audio.play().catch(() => {
+                        // Silently fail if audio playback fails
                     });
                 } catch (error) {
                     // Silently fail if audio is not supported
-                    console.log('Audio not supported');
                 }
             }
 
@@ -1173,6 +1092,512 @@
                         this.addCheckmarkToGalleryItem(mobilePhotoItem);
                     }
                 });
+
+                // Update template button status after gallery update
+                this.updateTemplateButtonStatus();
+            }
+
+                        updatePhotoGalleryPreservingAccepted() {
+                // Store current accepted photos status before updating
+                const acceptedPhotos = [];
+                this.capturedPhotos.forEach((_, index) => {
+                    acceptedPhotos[index] = this.checkIfPhotoHasCheckmark(index);
+                });
+
+                // Update gallery normally
+                this.updatePhotoGallery();
+
+                // Restore accepted status for all photos that were previously accepted
+                acceptedPhotos.forEach((isAccepted, index) => {
+                    if (isAccepted) {
+                        // Add checkmark back to gallery items
+                        const desktopGalleryItems = this.photoGallery.querySelectorAll('.photo-gallery-item');
+                        const mobileGalleryItems = this.mobilePhotoGallery.querySelectorAll('.photo-gallery-item');
+
+                        if (desktopGalleryItems[index]) {
+                            this.addCheckmarkToGalleryItem(desktopGalleryItems[index]);
+                        }
+                        if (mobileGalleryItems[index]) {
+                            this.addCheckmarkToGalleryItem(mobileGalleryItems[index]);
+                        }
+                    }
+                });
+
+                // Update template button status after gallery update
+                this.updateTemplateButtonStatus();
+            }
+
+            updateTemplateButtonStatus() {
+                // Check if all photos are accepted
+                const allAccepted = this.capturedPhotos.length > 0 && this.capturedPhotos.every((_, index) =>
+                    this.checkIfPhotoHasCheckmark(index)
+                );
+
+                // Update desktop template button
+                if (this.selectTemplateBtn) {
+                    if (allAccepted) {
+                        this.selectTemplateBtn.disabled = false;
+                        this.selectTemplateBtn.classList.remove('bg-gray-400');
+                        this.selectTemplateBtn.classList.add('bg-black', 'hover:bg-black/90');
+                    } else {
+                        this.selectTemplateBtn.disabled = true;
+                        this.selectTemplateBtn.classList.remove('bg-black', 'hover:bg-black/90');
+                        this.selectTemplateBtn.classList.add('bg-gray-400');
+                    }
+                }
+
+                // Update mobile template button
+                if (this.mobileSelectTemplateBtn) {
+                    if (allAccepted) {
+                        this.mobileSelectTemplateBtn.disabled = false;
+                        this.mobileSelectTemplateBtn.classList.remove('bg-gray-400');
+                        this.mobileSelectTemplateBtn.classList.add('bg-black', 'hover:bg-black/90');
+                    } else {
+                        this.mobileSelectTemplateBtn.disabled = true;
+                        this.mobileSelectTemplateBtn.classList.remove('bg-black', 'hover:bg-black/90');
+                        this.mobileSelectTemplateBtn.classList.add('bg-gray-400');
+                    }
+                }
+            }
+
+                        selectTemplate() {
+                // Check if all photos are accepted
+                const allAccepted = this.capturedPhotos.length > 0 && this.capturedPhotos.every((_, index) =>
+                    this.checkIfPhotoHasCheckmark(index)
+                );
+
+                if (!allAccepted) {
+                    this.showNotification('Semua foto harus di-accept terlebih dahulu', 'error');
+                    return;
+                }
+
+                // Show success message
+                this.showNotification('Membuka pilihan template...', 'success');
+
+                // Show template selection section
+                this.showTemplateSelection();
+            }
+
+            showTemplateSelection() {
+                // Create template selection section if it doesn't exist
+                if (!document.getElementById('template-selection-section')) {
+                    this.createTemplateSelectionSection();
+                }
+
+                // Show the template section
+                const templateSection = document.getElementById('template-selection-section');
+                templateSection.classList.remove('hidden');
+
+                // Scroll to template section
+                templateSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Generate templates based on current photo count and ratio
+                this.generateTemplates();
+
+                // Show initial message in preview container
+                const previewContainer = document.getElementById('template-preview-container');
+                const downloadBtn = document.getElementById('download-result-btn');
+
+                previewContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-gray-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <p class="text-lg font-semibold mb-2">Pilih Template</p>
+                            <p class="text-sm">Klik salah satu template di sebelah kiri untuk melihat preview</p>
+                        </div>
+                    </div>
+                `;
+
+                // Disable download button initially
+                downloadBtn.disabled = true;
+                downloadBtn.classList.remove('bg-black', 'hover:bg-black/90');
+                downloadBtn.classList.add('bg-gray-400');
+            }
+
+                        createTemplateSelectionSection() {
+                const templateSection = document.createElement('div');
+                templateSection.id = 'template-selection-section';
+                templateSection.className = 'py-12 bg-gray-50';
+                templateSection.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-black mb-4">
+                                Pilih Template
+                            </h2>
+                            <p class="text-black/70 text-lg max-w-2xl mx-auto">
+                                Template 3 foto vertikal dengan border putih
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                            <!-- Card 1: Template Selection -->
+                            <div class="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+                                <h3 class="text-xl font-bold text-black mb-6">Pilih Template</h3>
+                                <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Templates will be generated here -->
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Preview & Download -->
+                            <div class="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+                                <h3 class="text-xl font-bold text-black mb-6">Preview Hasil</h3>
+                                <div id="template-preview-container" class="mb-6">
+                                    <div class="text-center text-gray-500 py-12">
+                                        <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                        </svg>
+                                        <p class="text-lg font-semibold mb-2">Pilih Template</p>
+                                        <p class="text-sm">Klik template di sebelah kiri untuk melihat preview</p>
+                                    </div>
+                                </div>
+                                <button id="download-result-btn"
+                                    class="w-full px-6 py-3 bg-gray-400 text-white font-semibold rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled>
+                                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Download Hasil
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-12">
+                            <button id="back-to-photos-btn"
+                                class="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-black/90 transition-all duration-300 flex items-center gap-2 mx-auto">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                </svg>
+                                Kembali ke Foto
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Insert before the back to home section
+                const backToHomeSection = document.querySelector('.text-center.py-8');
+                backToHomeSection.parentNode.insertBefore(templateSection, backToHomeSection);
+
+                // Add event listener for back button
+                document.getElementById('back-to-photos-btn').addEventListener('click', () => {
+                    this.hideTemplateSelection();
+                });
+            }
+
+            generateTemplates() {
+                const templateGrid = document.getElementById('template-grid');
+                const photoCount = this.capturedPhotos.length;
+                const aspectRatio = this.photoRatio;
+
+                // Clear existing templates
+                templateGrid.innerHTML = '';
+
+                // Generate different template layouts based on photo count
+                const templates = this.getTemplateLayouts(photoCount, aspectRatio);
+
+                if (templates.length === 0) {
+                    // Show message when not enough photos
+                    templateGrid.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <div class="text-gray-500">
+                                <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <p class="text-lg font-semibold mb-2">Minimal 3 foto diperlukan</p>
+                                <p class="text-sm">Template ini membutuhkan setidaknya 3 foto untuk dapat digunakan</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    templates.forEach((template, index) => {
+                        const templateCard = this.createTemplateCard(template, index);
+                        templateGrid.appendChild(templateCard);
+                    });
+                }
+            }
+
+            getTemplateLayouts(photoCount, aspectRatio) {
+                const templates = [];
+
+                // Template: 3-Photo Vertical (User's Template)
+                if (photoCount >= 3) {
+                    const template = {
+                        name: '3-Photo Vertical',
+                        layout: 'custom-vertical',
+                        description: 'Contoh Template',
+                        frames: [
+                            { width: '100%', height: '33.33%', top: '0%', left: '0%' },
+                            { width: '100%', height: '33.33%', top: '33.33%', left: '0%' },
+                            { width: '100%', height: '33.33%', top: '66.66%', left: '0%' }
+                        ]
+                    };
+
+                    // Add frame PNG configuration using FrameHandler
+                    this.frameHandler.addFrameConfigToTemplate(template, aspectRatio);
+
+                    templates.push(template);
+                }
+
+                return templates;
+            }
+
+
+
+                        createTemplateCard(template, index) {
+                const card = document.createElement('div');
+                card.className = 'bg-gray-50 rounded-xl border-2 border-gray-200 hover:border-black transition-all duration-300 cursor-pointer template-card p-4';
+                card.setAttribute('data-template-index', index);
+
+                card.innerHTML = `
+                    <div class="text-center">
+                        <div class="mb-3">
+                            ${this.generateSimpleTemplatePreview(template)}
+                        </div>
+                        <h3 class="text-sm font-semibold text-black mb-1">${template.name}</h3>
+                        <p class="text-xs text-gray-600">${template.description}</p>
+                    </div>
+                `;
+
+                // Add click event
+                card.addEventListener('click', () => {
+                    this.selectTemplateCard(template, index);
+                });
+
+                return card;
+            }
+
+                                    generateSimpleTemplatePreview(template) {
+                // Use FrameHandler for preview generation
+                return this.frameHandler.generateSimpleTemplatePreview(template);
+            }
+
+
+
+            getAspectRatioClass() {
+                switch (this.photoRatio) {
+                    case '1:1':
+                        return 'aspect-square';
+                    case '4:3':
+                        return 'aspect-[4/3]';
+                    case '16:9':
+                        return 'aspect-video';
+                    default:
+                        return 'aspect-[4/3]';
+                }
+            }
+
+                        selectTemplateCard(template, index) {
+                // Add visual feedback
+                const allCards = document.querySelectorAll('.template-card');
+                allCards.forEach(card => {
+                    card.classList.remove('ring-2', 'ring-black', 'bg-black', 'text-white');
+                    card.classList.add('bg-gray-50');
+                });
+
+                const selectedCard = document.querySelector(`[data-template-index="${index}"]`);
+                selectedCard.classList.remove('bg-gray-50');
+                selectedCard.classList.add('ring-2', 'ring-black', 'bg-black', 'text-white');
+
+                // Clear previous preview canvas to ensure fresh rendering
+                this.previewCanvas = null;
+
+                // Show success message
+                this.showNotification(`Template "${template.name}" dipilih!`, 'success');
+
+                // Generate and show preview with actual photos (async)
+                this.generateTemplatePreviewWithPhotos(template).catch(error => {
+                    console.error('Error generating preview:', error);
+                });
+            }
+
+            async generateTemplatePreviewWithPhotos(template) {
+                const previewContainer = document.getElementById('template-preview-container');
+                const downloadBtn = document.getElementById('download-result-btn');
+
+                try {
+                    // Show loading state
+                    previewContainer.innerHTML = `
+                        <div class="text-center text-gray-500 py-12">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+                            <p class="text-sm">Mempersiapkan preview...</p>
+                        </div>
+                    `;
+
+                    // Create canvas with the SAME dimensions as download
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Set canvas size using FrameHandler (same as download)
+                    const [width, height] = this.frameHandler.getCanvasDimensions(template, () => this.getAspectRatioDimensions());
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    // Draw template with frame PNG using FrameHandler (same logic as download)
+                    try {
+                        await this.frameHandler.drawTemplateOnCanvasAsync(
+                            ctx,
+                            template,
+                            width,
+                            height,
+                            this.capturedPhotos,
+                            (ctx, src, x, y, w, h) => this.drawImageOnCanvasAsync(ctx, src, x, y, w, h),
+                            (ctx, src, x, y, w, h) => this.drawImageContainOnCanvasAsync(ctx, src, x, y, w, h)
+                        );
+                    } catch (frameError) {
+                        console.error('Error drawing frame in preview:', frameError);
+                        // If frame fails, show error on canvas
+                        ctx.fillStyle = '#f3f4f6';
+                        ctx.fillRect(0, 0, width, height);
+                        ctx.fillStyle = '#ef4444';
+                        ctx.font = '20px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Frame PNG tidak ditemukan', width / 2, height / 2);
+                        throw frameError; // Re-throw to trigger error handling
+                    }
+
+                    // Store canvas for download (reuse to avoid re-rendering)
+                    this.previewCanvas = canvas;
+
+                    // Calculate aspect ratio for preview container
+                    const aspectRatio = width / height;
+
+                    // Display canvas as image in preview container
+                    // Use max-width to ensure it fits in the container, but maintain aspect ratio
+                    previewContainer.innerHTML = `
+                        <div class="relative bg-white border-2 border-gray-300 rounded-xl overflow-hidden shadow-lg" style="aspect-ratio: ${aspectRatio}; max-width: 100%;">
+                            <img src="${canvas.toDataURL()}" alt="Preview Template" class="w-full h-full object-contain" style="display: block;">
+                        </div>
+                    `;
+
+                    // Enable download button
+                    downloadBtn.disabled = false;
+                    downloadBtn.classList.remove('bg-gray-400');
+                    downloadBtn.classList.add('bg-black', 'hover:bg-black/90');
+
+                    // Add download functionality - reuse the same canvas
+                    downloadBtn.onclick = () => this.downloadTemplateResult(template);
+                } catch (error) {
+                    console.error('Error generating preview:', error);
+                    previewContainer.innerHTML = `
+                        <div class="text-center text-red-500 py-12">
+                            <p class="text-sm">Gagal memuat preview. Silakan coba lagi.</p>
+                        </div>
+                    `;
+                    downloadBtn.disabled = true;
+                    downloadBtn.classList.add('bg-gray-400');
+                    downloadBtn.classList.remove('bg-black', 'hover:bg-black/90');
+                }
+            }
+
+                                    generateTemplateWithPhotos(template) {
+                // Use FrameHandler for template HTML generation
+                return this.frameHandler.generateTemplateWithPhotos(template, this.capturedPhotos);
+            }
+
+            async downloadTemplateResult(template) {
+                try {
+                    // Show loading message
+                    this.showNotification('Menyiapkan template untuk download...', 'info');
+
+                    let canvas;
+
+                    // Reuse preview canvas if available (to ensure exact match with preview)
+                    if (this.previewCanvas) {
+                        canvas = this.previewCanvas;
+                    } else {
+                        // If preview canvas doesn't exist, create new one
+                        canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        // Set canvas size using FrameHandler
+                        const [width, height] = this.frameHandler.getCanvasDimensions(template, () => this.getAspectRatioDimensions());
+
+                        canvas.width = width;
+                        canvas.height = height;
+
+                        // Draw template with frame PNG using FrameHandler
+                        try {
+                            await this.frameHandler.drawTemplateOnCanvasAsync(
+                                ctx,
+                                template,
+                                width,
+                                height,
+                                this.capturedPhotos,
+                                (ctx, src, x, y, w, h) => this.drawImageOnCanvasAsync(ctx, src, x, y, w, h),
+                                (ctx, src, x, y, w, h) => this.drawImageContainOnCanvasAsync(ctx, src, x, y, w, h)
+                            );
+                        } catch (frameError) {
+                            console.error('Error drawing frame:', frameError);
+                            // If frame fails, show error on canvas
+                            ctx.fillStyle = '#f3f4f6';
+                            ctx.fillRect(0, 0, width, height);
+                            ctx.fillStyle = '#ef4444';
+                            ctx.font = '20px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('Frame PNG tidak ditemukan', width / 2, height / 2);
+                        }
+                    }
+
+                    // Download the result
+                    const link = document.createElement('a');
+                    link.download = `ruangjepret-template-${template.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    // Show success message
+                    this.showNotification('Template berhasil di-download!', 'success');
+                } catch (error) {
+                    console.error('Error downloading template:', error);
+                    this.showNotification('Gagal mengunduh template', 'error');
+                }
+            }
+
+            // drawTemplateOnCanvasAsync is now handled by FrameHandler
+            // This method is kept for backward compatibility but is no longer used
+
+            drawImageOnCanvasAsync(ctx, imageSrc, x, y, width, height) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.drawImage(img, x, y, width, height);
+                        resolve();
+                    };
+                    img.onerror = reject;
+                    img.src = imageSrc;
+                });
+            }
+
+            // Draw image preserving aspect ratio (contain) and center it within the box
+            drawImageContainOnCanvasAsync(ctx, imageSrc, x, y, boxWidth, boxHeight) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const scale = Math.min(boxWidth / img.width, boxHeight / img.height);
+                        const drawWidth = Math.floor(img.width * scale);
+                        const drawHeight = Math.floor(img.height * scale);
+                        const dx = Math.floor(x + (boxWidth - drawWidth) / 2);
+                        const dy = Math.floor(y + (boxHeight - drawHeight) / 2);
+                        // Draw image directly - will show through transparent areas of frame PNG
+                        // Use source-over composite to ensure photo is visible
+                        ctx.globalCompositeOperation = 'source-over';
+                        ctx.drawImage(img, dx, dy, drawWidth, drawHeight);
+                        resolve();
+                    };
+                    img.onerror = reject;
+                    img.src = imageSrc;
+                });
+            }
+
+            hideTemplateSelection() {
+                const templateSection = document.getElementById('template-selection-section');
+                if (templateSection) {
+                    templateSection.classList.add('hidden');
+                }
             }
 
             showSelectedPhoto(photoData, index) {
@@ -1256,6 +1681,53 @@
                                 overlay.style.pointerEvents = 'auto';
                             }
                         });
+                    }
+                };
+                img.src = photoData;
+            }
+
+            showRetakenPhoto(photoData, index) {
+                const img = new Image();
+                img.onload = () => {
+                    // Update desktop canvas
+                    this.canvas.width = img.width;
+                    this.canvas.height = img.height;
+                    this.ctx.drawImage(img, 0, 0);
+
+                    // Update mobile canvas
+                    this.mobilePhotoCanvas.width = img.width;
+                    this.mobilePhotoCanvas.height = img.height;
+                    const mobileCtx = this.mobilePhotoCanvas.getContext('2d');
+                    mobileCtx.drawImage(img, 0, 0);
+
+                    // Store current photo index
+                    this.currentPhotoIndex = index;
+
+                    // For retaken photo, it's not accepted yet, so show hover overlay
+                    const photoDisplayContainer = this.photoPreview.querySelector('.group');
+                    const mobilePhotoDisplayContainer = this.mobilePhotoPreview.querySelector('.group');
+
+                    if (photoDisplayContainer) {
+                        photoDisplayContainer.classList.add('has-photo');
+                        photoDisplayContainer.classList.remove('photo-accepted');
+                        const hoverOverlay = photoDisplayContainer.querySelector('.hover-overlay');
+                        if (hoverOverlay) {
+                            hoverOverlay.style.display = 'block';
+                            hoverOverlay.style.opacity = '0';
+                            hoverOverlay.style.visibility = 'visible';
+                            hoverOverlay.style.pointerEvents = 'auto';
+                        }
+                    }
+                    if (mobilePhotoDisplayContainer) {
+                        mobilePhotoDisplayContainer.classList.add('has-photo');
+                        mobilePhotoDisplayContainer.classList.remove('photo-accepted');
+                        const hoverOverlay = mobilePhotoDisplayContainer.querySelector('.hover-overlay');
+                        if (hoverOverlay) {
+                            hoverOverlay.style.display = 'block';
+                            hoverOverlay.style.opacity = '0';
+                            hoverOverlay.style.visibility = 'visible';
+                            hoverOverlay.style.pointerEvents = 'auto';
+                        }
                     }
                 };
                 img.src = photoData;
@@ -1349,16 +1821,20 @@
                     }, 300);
                 }
 
+                // Get current photo index
+                const currentPhotoIndex = this.getCurrentPhotoIndex();
+                if (currentPhotoIndex === -1) {
+                    this.showNotification('Tidak ada foto yang dipilih', 'error');
+                    return;
+                }
+
                 // Show confirmation message
                 this.showNotification('Mengambil foto ulang...', 'info');
 
-                // Remove checkmark from current photo only
-                const currentPhotoIndex = this.getCurrentPhotoIndex();
-                if (currentPhotoIndex !== -1) {
+                // Remove checkmark from current photo only (don't reset other accepted photos)
                     this.removeCheckmarkFromPhoto(currentPhotoIndex);
-                }
 
-                // Remove photo-accepted class from preview containers and restore hover
+                // Remove photo-accepted class from preview containers only for current photo
                 const photoDisplayContainer = this.photoPreview.querySelector('.group');
                 const mobilePhotoDisplayContainer = this.mobilePhotoPreview.querySelector('.group');
 
@@ -1369,8 +1845,87 @@
                     mobilePhotoDisplayContainer.classList.remove('photo-accepted');
                 }
 
-                // Restore hover overlays
-                this.restoreHoverOverlay();
+                // Restore hover overlays only for current photo
+                this.restoreHoverOverlayForCurrentPhoto(currentPhotoIndex);
+
+                // Update template button status
+                this.updateTemplateButtonStatus();
+
+                // Take a new photo to replace the current one
+                this.retakeSinglePhoto(currentPhotoIndex);
+            }
+
+            async retakeSinglePhoto(photoIndex) {
+                if (!this.stream || this.isCapturing) {
+                    this.showNotification('Kamera tidak tersedia', 'error');
+                    return;
+                }
+
+                this.isCapturing = true;
+
+                try {
+                    // Update progress text for single photo retake
+                    this.photoProgress.textContent = `Mengambil ulang foto ${photoIndex + 1}`;
+
+                    // Show countdown for single photo
+                    await this.runCountdown();
+
+                    // Trigger camera effects
+                    this.triggerCameraEffects();
+
+                    // Capture new photo with selected aspect ratio
+                    const [targetWidth, targetHeight] = this.getAspectRatioDimensions();
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = targetWidth;
+                    tempCanvas.height = targetHeight;
+                    const tempCtx = tempCanvas.getContext('2d');
+
+                    // Apply mirror effect if enabled
+                    if (this.isMirrored) {
+                        tempCtx.scale(-1, 1);
+                        tempCtx.translate(-tempCanvas.width, 0);
+                    }
+
+                    // Draw video with aspect ratio cropping
+                    const videoAspect = this.video.videoWidth / this.video.videoHeight;
+                    const targetAspect = targetWidth / targetHeight;
+
+                    let sx, sy, sWidth, sHeight;
+
+                    if (videoAspect > targetAspect) {
+                        // Video is wider than target, crop sides
+                        sHeight = this.video.videoHeight;
+                        sWidth = this.video.videoHeight * targetAspect;
+                        sx = (this.video.videoWidth - sWidth) / 2;
+                        sy = 0;
+                    } else {
+                        // Video is taller than target, crop top/bottom
+                        sWidth = this.video.videoWidth;
+                        sHeight = this.video.videoWidth / targetAspect;
+                        sx = 0;
+                        sy = (this.video.videoHeight - sHeight) / 2;
+                    }
+
+                    tempCtx.drawImage(this.video, sx, sy, sWidth, sHeight, 0, 0, targetWidth, targetHeight);
+
+                    // Replace the photo at the specified index
+                    this.capturedPhotos[photoIndex] = tempCanvas.toDataURL();
+
+                    // Show the new photo immediately (without resetting other accepted photos)
+                    this.showRetakenPhoto(tempCanvas.toDataURL(), photoIndex);
+
+                    // Update photo gallery with the new photo (preserving other accepted photos)
+                    this.updatePhotoGalleryPreservingAccepted();
+
+                    // Show success message
+                    this.showNotification(`Foto ${photoIndex + 1} berhasil diambil ulang!`, 'success');
+
+                } catch (error) {
+                    console.error('Error retaking photo:', error);
+                    this.showNotification('Gagal mengambil foto ulang', 'error');
+                } finally {
+                    this.isCapturing = false;
+                }
             }
 
                                     acceptPhoto() {
@@ -1403,6 +1958,9 @@
 
                 // Force hide all hover overlays
                 this.forceHideHoverOverlay();
+
+                // Update template button status
+                this.updateTemplateButtonStatus();
 
                 // Show success message
                 this.showNotification('Foto berhasil diterima!', 'success');
@@ -1513,6 +2071,20 @@
 
             restoreHoverOverlay() {
                 // Restore hover overlays for non-accepted photos
+                const hoverOverlays = document.querySelectorAll('.hover-overlay');
+                hoverOverlays.forEach(overlay => {
+                    const container = overlay.closest('.group');
+                    if (container && !container.classList.contains('photo-accepted')) {
+                        overlay.style.display = 'block';
+                        overlay.style.opacity = '0'; // Will be controlled by CSS hover
+                        overlay.style.visibility = 'visible';
+                        overlay.style.pointerEvents = 'auto';
+                    }
+                });
+            }
+
+            restoreHoverOverlayForCurrentPhoto(photoIndex) {
+                // Restore hover overlay only for the specific photo being retaken
                 const hoverOverlays = document.querySelectorAll('.hover-overlay');
                 hoverOverlays.forEach(overlay => {
                     const container = overlay.closest('.group');
@@ -2434,6 +3006,138 @@
             .hover-overlay {
                 background-color: rgba(0, 0, 0, 0.1) !important;
             }
+        }
+
+        /* Template Selection Styles */
+        #template-selection-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        /* Two-card layout styles */
+        .template-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .template-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-card.ring-2 {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Selected template card styling */
+        .template-card.bg-black {
+            color: white;
+        }
+
+        .template-card.bg-black h3,
+        .template-card.bg-black p {
+            color: white;
+        }
+
+        .template-preview {
+            background: linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+                        linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+                        linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* Aspect ratio classes for templates */
+        .aspect-\[4\/3\] {
+            aspect-ratio: 4 / 3;
+        }
+
+        .aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+
+        .aspect-video {
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Template preview frame styles */
+        .template-preview .bg-white {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-preview .bg-gray-200 {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom vertical template styles */
+        .custom-vertical-template {
+            background: white;
+            border: 2px solid white;
+        }
+
+        .custom-vertical-template .border-b-2 {
+            border-bottom-width: 8px;
+        }
+
+        /* Responsive template grid */
+        @media (max-width: 640px) {
+            #template-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            #template-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            #template-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            #template-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Template card animations */
+        .template-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animation for template cards */
+        .template-card:nth-child(1) { animation-delay: 0.1s; }
+        .template-card:nth-child(2) { animation-delay: 0.2s; }
+        .template-card:nth-child(3) { animation-delay: 0.3s; }
+        .template-card:nth-child(4) { animation-delay: 0.4s; }
+        .template-card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Back button hover effect */
+        #back-to-photos-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        /* Template selection section scroll behavior */
+        #template-selection-section {
+            scroll-margin-top: 2rem;
         }
     </style>
 @endpush

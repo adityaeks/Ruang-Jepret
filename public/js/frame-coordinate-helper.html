@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Frame Coordinate Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .preview {
+            border: 2px solid #000;
+            position: relative;
+            background: #f0f0f0;
+        }
+        
+        .controls {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+        }
+        
+        .hole-info {
+            background: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .coordinate-output {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Frame Coordinate Helper</h1>
+    <p>Upload frame PNG Anda dan klik area lubang foto untuk mendapatkan koordinat</p>
+
+    <div class="container">
+        <div>
+            <div class="preview" id="preview-container">
+                <canvas id="preview-canvas"></canvas>
+            </div>
+            <input type="file" id="frame-input" accept="image/png">
+            <button onclick="clearCanvas()">Clear</button>
+            <button onclick="exportCoordinates()">Export Coordinates</button>
+        </div>
+
+        <div class="controls">
+            <h3>Current Hole Configuration</h3>
+            <div id="hole-configs"></div>
+
+            <div class="control-group">
+                <label>Frame Width:</label>
+                <input type="number" id="frame-width" value="867" onchange="updateFrameSize()">
+            </div>
+
+            <div class="control-group">
+                <label>Frame Height:</label>
+                <input type="number" id="frame-height" value="2048" onchange="updateFrameSize()">
+            </div>
+
+            <div class="coordinate-output" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('preview-canvas');
+        const ctx = canvas.getContext('2d');
+        const frameInput = document.getElementById('frame-input');
+        let frameImage = null;
+        let holes = [];
+        let currentHoleIndex = -1;
+        let isDrawing = false;
+        let startX = 0;
+        let startY = 0;
+
+        frameInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        frameImage = img;
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        document.getElementById('frame-width').value = img.width;
+                        document.getElementById('frame-height').value = img.height;
+                        drawFrame();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function updateFrameSize() {
+            if (frameImage) {
+                canvas.width = parseInt(document.getElementById('frame-width').value);
+                canvas.height = parseInt(document.getElementById('frame-height').value);
+                drawFrame();
+            }
+        }
+
+        function drawFrame() {
+            if (!frameImage) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+
+            // Draw existing holes
+            holes.forEach((hole, index) => {
+                ctx.strokeStyle = index === currentHoleIndex ? '#00ff00' : '#ff0000';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(hole.x, hole.y, hole.width, hole.height);
+
+                ctx.fillStyle = index === currentHoleIndex ? 'rgba(0,255,0,0.2)' : 'rgba(255,0,0,0.2)';
+                ctx.fillRect(hole.x, hole.y, hole.width, hole.height);
+
+                // Label
+                ctx.fillStyle = '#000';
+                ctx.font = '16px Arial';
+                ctx.fillText(`Hole ${index + 1}`, hole.x + 5, hole.y + 20);
+            });
+
+            updateHoleConfigs();
+            updateOutput();
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            startX = (e.clientX - rect.left) * scaleX;
+            startY = (e.clientY - rect.top) * scaleY;
+            isDrawing = true;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            const currentX = (e.clientX - rect.left) * scaleX;
+            const currentY = (e.clientY - rect.top) * scaleY;
+
+            drawFrame();
+
+            // Draw current selection
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.strokeRect(
+                Math.min(startX, currentX),
+                Math.min(startY, currentY),
+                Math.abs(currentX - startX),
+                Math.abs(currentY - startY)
+            );
+            ctx.setLineDash([]);
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (!isDrawing) return;
+            isDrawing = false;
+
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            const endX = (e.clientX - rect.left) * scaleX;
+            const endY = (e.clientY - rect.top) * scaleY;
+
+            const x = Math.min(startX, endX);
+            const y = Math.min(startY, endY);
+            const width = Math.abs(endX - startX);
+            const height = Math.abs(endY - startY);
+
+            if (width > 10 && height > 10) {
+                if (currentHoleIndex >= 0 && currentHoleIndex < holes.length) {
+                    // Update existing hole
+                    holes[currentHoleIndex] = {
+                        x,
+                        y,
+                        width,
+                        height
+                    };
+                } else {
+                    // Add new hole
+                    holes.push({
+                        x,
+                        y,
+                        width,
+                        height
+                    });
+                    currentHoleIndex = holes.length - 1;
+                }
+                drawFrame();
+            }
+        });
+
+        function updateHoleConfigs() {
+            const container = document.getElementById('hole-configs');
+            container.innerHTML = '';
+
+            holes.forEach((hole, index) => {
+                const div = document.createElement('div');
+                div.className = 'hole-info';
+                div.innerHTML = `
+                    <strong>Hole ${index + 1}</strong>
+                    <button onclick="selectHole(${index})">Select</button>
+                    <button onclick="deleteHole(${index})">Delete</button>
+                    <br>
+                    X: <input type="number" value="${hole.x}" onchange="updateHole(${index}, 'x', this.value)">
+                    Y: <input type="number" value="${hole.y}" onchange="updateHole(${index}, 'y', this.value)">
+                    <br>
+                    Width: <input type="number" value="${hole.width}" onchange="updateHole(${index}, 'width', this.value)">
+                    Height: <input type="number" value="${hole.height}" onchange="updateHole(${index}, 'height', this.value)">
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectHole(index) {
+            currentHoleIndex = index;
+            drawFrame();
+        }
+
+        function deleteHole(index) {
+            holes.splice(index, 1);
+            if (currentHoleIndex >= holes.length) {
+                currentHoleIndex = -1;
+            }
+            drawFrame();
+        }
+
+        function updateHole(index, property, value) {
+            holes[index][property] = parseInt(value);
+            drawFrame();
+        }
+
+        function clearCanvas() {
+            holes = [];
+            currentHoleIndex = -1;
+            drawFrame();
+        }
+
+        function exportCoordinates() {
+            const frameWidth = parseInt(document.getElementById('frame-width').value);
+            const frameHeight = parseInt(document.getElementById('frame-height').value);
+
+            const config = {
+                width: frameWidth,
+                height: frameHeight,
+                photoHoles: holes.map(hole => ({
+                    x: Math.round(hole.x),
+                    y: Math.round(hole.y),
+                    width: Math.round(hole.width),
+                    height: Math.round(hole.height)
+                }))
+            };
+
+            const output = `// Frame Configuration
+frameConfig = {
+    path: '/frames/frame-4x3-3photos.png',
+    width: ${config.width},
+    height: ${config.height},
+    photoHoles: [
+${config.photoHoles.map(hole => `        { x: ${hole.x}, y: ${hole.y}, width: ${hole.width}, height: ${hole.height} }`).join(',\n')}
+    ]
+};`;
+
+            document.getElementById('output').textContent = output;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(output).then(() => {
+                alert('Coordinates copied to clipboard!');
+            });
+        }
+
+        function updateOutput() {
+            if (holes.length === 0) return;
+
+            const frameWidth = parseInt(document.getElementById('frame-width').value);
+            const frameHeight = parseInt(document.getElementById('frame-height').value);
+
+            let output = 'Current Coordinates:\n\n';
+            holes.forEach((hole, index) => {
+                output += `Hole ${index + 1}:\n`;
+                output += `  x: ${hole.x}, y: ${hole.y}\n`;
+                output += `  width: ${hole.width}, height: ${hole.height}\n`;
+                output += `  Percent: left=${((hole.x/frameWidth)*100).toFixed(2)}%, top=${((hole.y/frameHeight)*100).toFixed(2)}%\n`;
+                output += `  Percent: width=${((hole.width/frameWidth)*100).toFixed(2)}%, height=${((hole.height/frameHeight)*100).toFixed(2)}%\n\n`;
+            });
+
+            document.getElementById('output').textContent = output;
+        }
+
+        // Initialize
+        drawFrame();
+    </script>
+</body>
+
+</html>
