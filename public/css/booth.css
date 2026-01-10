@@ -1,0 +1,966 @@
+.btn-outline-dark {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.8);
+    background-color: white;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+    .btn-outline-dark {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.75rem;
+    }
+}
+
+
+/* Mobile settings layout */
+
+@media (max-width: 639px) {
+    .btn-outline-dark {
+        min-width: 3rem;
+    }
+}
+
+.btn-outline-dark:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+.dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-item.active {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+
+/* Camera preview size control */
+
+.aspect-video {
+    max-height: 60vh;
+}
+
+
+/* Camera aspect ratio control */
+
+#camera-preview {
+    object-fit: cover;
+}
+
+
+/* Aspect ratio overlay styling */
+
+#aspect-ratio-overlay {
+    z-index: 10;
+    pointer-events: none;
+}
+
+#aspect-ratio-overlay .border-white\/30 {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+
+/* Corner indicators */
+
+#aspect-ratio-overlay .absolute.w-6.h-6 {
+    border-width: 3px !important;
+}
+
+
+/* Ensure overlay center is properly sized */
+
+#aspect-ratio-overlay .relative {
+    box-sizing: border-box;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+
+/* Overlay container styling */
+
+#aspect-ratio-overlay>div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Black overlay background */
+
+#aspect-ratio-overlay .bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.616) !important;
+}
+
+
+/* Camera status badge - ensure it's above overlay */
+
+#camera-status {
+    z-index: 20 !important;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px);
+}
+
+@media (max-width: 768px) {
+    .aspect-video {
+        max-height: 50vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .aspect-video {
+        max-height: 40vh;
+    }
+}
+
+
+/* Video mirror effect */
+
+#camera-preview {
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+
+/* Responsive layout adjustments */
+
+@media (min-width: 1024px) {
+    .grid-cols-1.lg\:grid-cols-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* Mobile photo preview adjustments */
+
+@media (max-width: 1023px) {
+    #mobile-photo-preview {
+        margin-top: 1.5rem;
+    }
+}
+
+
+/* Ensure canvas maintains aspect ratio */
+
+#photo-canvas,
+#mobile-photo-canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Photo gallery square layout */
+
+#photo-gallery,
+#mobile-photo-gallery {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+#photo-gallery>div,
+#mobile-photo-gallery>div {
+    aspect-ratio: 1;
+    position: relative;
+}
+
+
+/* Dynamic aspect ratio for gallery items */
+
+#photo-gallery.aspect-1-1>div,
+#mobile-photo-gallery.aspect-1-1>div {
+    aspect-ratio: 1;
+}
+
+#photo-gallery.aspect-4-3>div,
+#mobile-photo-gallery.aspect-4-3>div {
+    aspect-ratio: 4/3;
+}
+
+#photo-gallery.aspect-16-9>div,
+#mobile-photo-gallery.aspect-16-9>div {
+    aspect-ratio: 16/9;
+}
+
+#photo-gallery img,
+#mobile-photo-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+#photo-gallery .absolute,
+#mobile-photo-gallery .absolute {
+    border-radius: 0.5rem;
+}
+
+
+/* Responsive gallery sizing */
+
+@media (min-width: 640px) {
+    #photo-gallery {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 639px) {
+    #mobile-photo-gallery {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+
+/* Extra small screens */
+
+@media (max-width: 480px) {
+    #mobile-photo-gallery {
+        max-width: 280px;
+        gap: 0.25rem;
+    }
+}
+
+
+/* Camera Effects */
+
+.countdown-circle {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+}
+
+
+/* Flash Effect */
+
+#flash-effect {
+    z-index: 50;
+    transition: opacity 0.15s ease-out;
+}
+
+#flash-effect.flash {
+    opacity: 1 !important;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+}
+
+
+/* Camera Flash Overlay */
+
+#camera-flash-overlay {
+    z-index: 60;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+    backdrop-filter: blur(2px);
+}
+
+#camera-flash-overlay.flash-active {
+    opacity: 1 !important;
+    transform: scale(1.02);
+    box-shadow: 0 0 100px rgba(255, 255, 255, 1), inset 0 0 50px rgba(255, 255, 255, 0.5);
+}
+
+
+/* Shutter Effect */
+
+#shutter-effect {
+    z-index: 40;
+}
+
+#shutter-effect.active .shutter-top {
+    transform: translateY(0) !important;
+}
+
+#shutter-effect.active .shutter-bottom {
+    transform: translateY(0) !important;
+}
+
+
+/* Camera Shake Effect */
+
+@keyframes cameraShake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-2px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+.camera-shake {
+    animation: cameraShake 0.3s ease-in-out;
+}
+
+
+/* Countdown Number Animation */
+
+@keyframes countdownPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.countdown-pop {
+    animation: countdownPop 0.5s ease-out;
+}
+
+
+/* Hover Effect for Photo Display - Only show when has-photo class exists */
+
+.group:not(.has-photo) .hover-overlay {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+.group.has-photo:hover .hover-overlay {
+    opacity: 1 !important;
+    transform: scale(1.02);
+}
+
+
+/* Enhanced hover overlay styling */
+
+.hover-overlay {
+    backdrop-filter: blur(2px);
+    box-shadow: none;
+    border: none;
+}
+
+
+/* Button styles for hover overlay */
+
+.hover-overlay button {
+    min-width: 80px;
+    font-size: 14px;
+    padding: 8px 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hover-overlay button:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Responsive button sizing */
+
+@media (max-width: 768px) {
+    .hover-overlay button {
+        min-width: 70px;
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hover-overlay button {
+        min-width: 65px;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+    .hover-overlay {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hover-overlay button {
+        min-width: 60px;
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    .hover-overlay {
+        gap: 6px;
+    }
+}
+
+
+/* Touch device support - show overlay on touch */
+
+@media (hover: none) and (pointer: coarse) {
+    .group:active .hover-overlay {
+        opacity: 1 !important;
+    }
+    /* Show overlay when photo is displayed on mobile */
+    .group.has-photo .hover-overlay {
+        opacity: 1 !important;
+    }
+    /* Ensure buttons are visible on mobile */
+    .group.has-photo .hover-overlay button {
+        opacity: 1;
+        transform: scale(1);
+    }
+    /* Make overlay more visible on touch devices */
+    .hover-overlay {
+        background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+    /* Ensure buttons are accessible */
+    .hover-overlay button {
+        z-index: 10;
+        position: relative;
+    }
+    /* Add subtle animation for better UX */
+    .hover-overlay button:hover {
+        transform: scale(1.05);
+    }
+    /* Auto-hide overlay after 5 seconds on touch devices */
+    .group.has-photo .hover-overlay {
+        animation: autoHideOverlay 5s ease-in-out forwards;
+    }
+    @keyframes autoHideOverlay {
+        0%,
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
+
+/* General overlay improvements */
+
+.hover-overlay {
+    backdrop-filter: blur(1px);
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+
+/* Button improvements */
+
+.hover-overlay button {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Ensure smooth transitions */
+
+.group {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-overlay {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Focus states for accessibility */
+
+.hover-overlay button:focus {
+    outline: 2px solid rgba(0, 0, 0, 0.5);
+    outline-offset: 2px;
+    transform: scale(1.05);
+}
+
+
+/* Loading state for buttons */
+
+.hover-overlay button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: scale(0.95);
+}
+
+
+/* Enhanced button states */
+
+.hover-overlay button:active {
+    transform: scale(0.95);
+}
+
+
+/* Success animation */
+
+@keyframes buttonSuccess {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.button-success {
+    animation: buttonSuccess 0.3s ease-in-out;
+}
+
+
+/* Enhanced button animations */
+
+@keyframes buttonPulse {
+    0%,
+    100% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.hover-overlay button {
+    animation: buttonPulse 2s ease-in-out infinite;
+}
+
+
+/* Photo display container improvements */
+
+.group {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.group canvas {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover canvas {
+    transform: scale(1.02);
+}
+
+
+/* Ensure overlay is always on top */
+
+.hover-overlay {
+    z-index: 50;
+}
+
+
+/* Button text improvements */
+
+.hover-overlay button {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+
+/* Icon improvements */
+
+.hover-overlay button svg {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+
+/* Photo checkmark styling */
+
+.photo-checkmark {
+    animation: checkmarkAppear 0.5s ease-out;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+@keyframes checkmarkAppear {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.checkmark-animation {
+    animation: checkmarkPulse 2s ease-in-out infinite;
+}
+
+@keyframes checkmarkPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 1px 4px rgba(34, 197, 94, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 2px 6px rgba(34, 197, 94, 0.6);
+    }
+}
+
+
+/* Responsive checkmark sizing */
+
+@media (max-width: 640px) {
+    .photo-checkmark {
+        width: 16px !important;
+        height: 16px !important;
+        top: 2px !important;
+        right: 2px !important;
+    }
+    .photo-checkmark svg {
+        width: 10px !important;
+        height: 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-checkmark {
+        width: 14px !important;
+        height: 14px !important;
+        top: 1px !important;
+        right: 1px !important;
+    }
+    .photo-checkmark svg {
+        width: 8px !important;
+        height: 8px !important;
+    }
+}
+
+
+/* Disable hover for accepted photos */
+
+.photo-gallery-item.no-hover {
+    cursor: default;
+}
+
+.photo-gallery-item.no-hover:hover {
+    transform: none;
+}
+
+.photo-gallery-item.no-hover .photo-hover-overlay {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+
+/* Ensure checkmark is always visible on accepted photos */
+
+.photo-gallery-item.no-hover .photo-checkmark {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+
+/* Checkmark positioning and styling */
+
+.photo-checkmark {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+}
+
+
+/* Hover effect for non-accepted photos - Only when has-photo exists */
+
+.group:not(.has-photo) .hover-overlay {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.group.has-photo:not(.photo-accepted) .hover-overlay {
+    display: block;
+    opacity: 0;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+.group.has-photo:not(.photo-accepted):hover .hover-overlay {
+    opacity: 1;
+}
+
+
+/* Disable hover for accepted photos */
+
+.group.photo-accepted .hover-overlay,
+.photo-accepted .hover-overlay {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+.group.photo-accepted {
+    cursor: default;
+}
+
+.group.photo-accepted:hover {
+    transform: none;
+}
+
+
+/* Mobile-specific improvements */
+
+@media (max-width: 480px) {
+    .hover-overlay {
+        padding: 6px;
+    }
+    .hover-overlay button {
+        font-size: 10px;
+        padding: 4px 8px;
+        min-width: 55px;
+    }
+    .hover-overlay button svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+
+/* Tablet improvements */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .hover-overlay button {
+        font-size: 12px;
+        padding: 6px 10px;
+        min-width: 65px;
+    }
+}
+
+
+/* Desktop improvements */
+
+@media (min-width: 769px) {
+    .hover-overlay button {
+        font-size: 13px;
+        padding: 8px 14px;
+        min-width: 75px;
+    }
+}
+
+
+/* High DPI displays */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .hover-overlay button {
+        border-width: 0.5px;
+    }
+}
+
+
+/* Dark mode support */
+
+@media (prefers-color-scheme: dark) {
+    .hover-overlay {
+        background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+}
+
+
+/* Template Selection Styles */
+
+#template-selection-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+
+/* Two-card layout styles */
+
+.template-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.template-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.template-card.ring-2 {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+
+/* Selected template card styling */
+
+.template-card.bg-black {
+    color: white;
+}
+
+.template-card.bg-black h3,
+.template-card.bg-black p {
+    color: white;
+}
+
+.template-preview {
+    background: linear-gradient(45deg, #f1f5f9 25%, transparent 25%), linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f1f5f9 75%), linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+
+/* Aspect ratio classes for templates */
+
+.aspect-\[4\/3\] {
+    aspect-ratio: 4 / 3;
+}
+
+.aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+
+/* Template preview frame styles */
+
+.template-preview .bg-white {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.template-preview .bg-gray-200 {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+/* Custom vertical template styles */
+
+.custom-vertical-template {
+    background: white;
+    border: 2px solid white;
+}
+
+.custom-vertical-template .border-b-2 {
+    border-bottom-width: 8px;
+}
+
+
+/* Responsive template grid */
+
+@media (max-width: 640px) {
+    #template-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    #template-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    #template-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    #template-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+
+/* Template card animations */
+
+.template-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Stagger animation for template cards */
+
+.template-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.template-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.template-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.template-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.template-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+
+/* Back button hover effect */
+
+#back-to-photos-btn:hover {
+    transform: translateX(-4px);
+}
+
+
+/* Template selection section scroll behavior */
+
+#template-selection-section {
+    scroll-margin-top: 2rem;
+}

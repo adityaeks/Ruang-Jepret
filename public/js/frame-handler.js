@@ -5,50 +5,167 @@
 
 class FrameHandler {
     constructor() {
-        // Frame configuration for 4:3 aspect ratio
-        this.frameConfig = {
-            path: '/frames/frame-4x3-3photos.png',
+        // Shared configuration for all 4:3 frames (same dimensions and photo holes)
+        // Semua frame dengan ukuran yang sama share config ini
+        const sharedConfig = {
             width: 867,
             height: 2048,
             photoHoles: [
                 // UPDATED: Changed height from 640 to 570 for perfect 4:3 aspect ratio (1.3333)
                 // Aspect ratio: 760/570 = 1.3333 (perfect match with 4:3 photos)
-                // Y coordinates adjusted based on maintaining 40px gap between holes
+                // Y coordinates: Reduced for photos 2 and 3 to eliminate space above
                 { x: 53, y: 40, width: 760, height: 570 },
-                { x: 53, y: 650, width: 760, height: 570 }, // Y: 40 + 570 + 40 = 650
-                { x: 53, y: 1260, width: 760, height: 570 } // Y: 650 + 570 + 40 = 1260
+                { x: 53, y: 643, width: 760, height: 570 }, // Y: 40 + 570 - 30 = 580 (reduced by 70px to move up)
+                { x: 53, y: 1244, width: 760, height: 570 } // Y: 580 + 570 - 30 = 1120 (reduced by 140px to move up)
             ],
-            // NOTE: Dimensions adjusted for 4:3 aspect ratio
-            // - Aspect ratio: 760/570 = 1.3333 (perfect match with 4:3 photos)
-            // - No cropping needed (photos will fit perfectly)
-            // - Y coordinates calculated with 40px gap between holes
-            //
-            // IMPORTANT: Verify these coordinates match the actual transparent areas in your frame PNG!
-            // 1. Use DEBUG_MODE (enabled below) to see magenta background in transparent areas
-            // 2. Use frame-coordinate-helper.html to get exact coordinates from your frame PNG
-            // 3. If coordinates don't match transparent areas, adjust them accordingly
-            // Fine-tuning adjustments (can be adjusted if photos are slightly off)
             adjustments: {
                 offsetX: 0, // Adjust X position for all holes
                 offsetY: 0, // Adjust Y position for all holes
                 padding: 0 // Padding inside each hole (negative = expand, positive = shrink)
             }
         };
+
+        // Multiple frame configurations dengan ukuran yang sama
+        //
+        // CARA MENAMBAHKAN FRAME VERSI BARU:
+        // 1. Simpan file PNG frame baru di folder public/frames/
+        // 2. Pastikan ukuran frame PNG sama dengan frame yang ada (867x2048)
+        // 3. Pastikan posisi photo holes (transparent areas) sama dengan frame yang ada
+        // 4. Uncomment dan tambahkan konfigurasi frame baru di bawah ini
+        // 5. Ganti 'frame-v2' dengan ID unik, 'Frame Versi 2' dengan nama, dan path dengan lokasi file PNG
+        //
+        // Contoh:
+        // 'frame-v2': {
+        //     id: 'frame-v2',
+        //     name: 'Frame Versi 2',
+        //     path: '/frames/frame-4x3-3photos-v2.png',
+        //     ...sharedConfig  // Menggunakan shared config (dimensi dan photoHoles yang sama)
+        // }
+        this.frameConfigs = {
+            'frame-v1': {
+                id: 'frame-v1',
+                name: 'Default',
+                path: '/frames/frame-4x3-3photos.png',
+                aspectRatio: '4:3', // Rasio foto yang didukung oleh frame ini
+                ...sharedConfig
+            },
+            // Uncomment dan sesuaikan untuk menambahkan frame versi lain:
+            // ,
+            'frame-v2': {
+                id: 'frame-v2',
+                name: 'Bear v1',
+                path: '/frames/frame-4x3-3photos-v2.png',
+                aspectRatio: '4:3', // Rasio foto yang didukung oleh frame ini
+                ...sharedConfig
+            }
+            // Contoh frame dengan rasio lain:
+            // 'frame-v3': {
+            //     id: 'frame-v3',
+            //     name: 'Frame Versi 3',
+            //     path: '/frames/frame-1x1-3photos.png',
+            //     aspectRatio: '1:1', // Frame untuk rasio 1:1
+            //     ...sharedConfig1x1
+            // },
+            // 'frame-v4': {
+            //     id: 'frame-v4',
+            //     name: 'Frame Versi 4',
+            //     path: '/frames/frame-16x9-3photos.png',
+            //     aspectRatio: '16:9', // Frame untuk rasio 16:9
+            //     ...sharedConfig16x9
+            // }
+        };
+
+        // Default frame (untuk backward compatibility)
+        this.frameConfig = this.frameConfigs['frame-v1'];
+
+        // Log initialization for debugging
+        console.log('[FrameHandler] Initialized with frames:', Object.keys(this.frameConfigs).map(id => ({
+            id: id,
+            name: this.frameConfigs[id].name,
+            path: this.frameConfigs[id].path
+        })));
+    }
+
+    /**
+     * Get frame configuration by ID
+     * @param {string} frameId - Frame ID (e.g., 'frame-v1')
+     * @returns {Object|null} Frame configuration or null if not found
+     */
+    getFrameConfig(frameId) {
+        return this.frameConfigs[frameId] || this.frameConfig;
+    }
+
+    /**
+     * Get all available frame configs for a specific aspect ratio
+     * Hanya menampilkan frame yang sesuai dengan rasio foto yang dipilih
+     * @param {string} aspectRatio - Aspect ratio string (e.g., '4:3', '1:1', '16:9')
+     * @returns {Array} Array of frame config objects that match the aspect ratio
+     */
+    getAvailableFrames(aspectRatio) {
+        try {
+            // Filter frame configs berdasarkan aspectRatio yang sesuai
+            const matchingFrames = Object.values(this.frameConfigs).filter(frame => {
+                // Jika frame tidak memiliki property aspectRatio, skip (untuk backward compatibility, anggap tidak cocok)
+                if (!frame.aspectRatio) {
+                    console.warn(`[FrameHandler] Frame ${frame.id} (${frame.name}) tidak memiliki property aspectRatio, akan di-skip`);
+                    return false;
+                }
+                // Bandingkan aspectRatio dengan case-insensitive
+                return frame.aspectRatio.toLowerCase() === aspectRatio.toLowerCase();
+            });
+
+            if (matchingFrames.length > 0) {
+                console.log(`[FrameHandler] Found ${matchingFrames.length} frame(s) for aspect ratio ${aspectRatio}:`, matchingFrames.map(f => f.name));
+                return matchingFrames;
+            } else {
+                console.warn(`[FrameHandler] No frames configured for aspect ratio: ${aspectRatio}`);
+                console.log(`[FrameHandler] Available frame aspect ratios:`, [...new Set(Object.values(this.frameConfigs).map(f => f.aspectRatio).filter(Boolean))]);
+                return [];
+            }
+        } catch (error) {
+            console.error('[FrameHandler] Error getting available frames:', error);
+            // Return empty array if error occurs (lebih aman daripada return frame yang salah)
+            return [];
+        }
     }
 
     /**
      * Add frame configuration to template object
+     * Hanya menambahkan frame config jika aspectRatio frame sesuai dengan aspectRatio yang diminta
      * @param {Object} template - Template object
-     * @param {string} aspectRatio - Aspect ratio string (e.g., '4:3')
+     * @param {string} aspectRatio - Aspect ratio string (e.g., '4:3', '1:1', '16:9')
+     * @param {string} frameId - Optional frame ID (default: 'frame-v1')
      */
-    addFrameConfigToTemplate(template, aspectRatio) {
-        if (aspectRatio === '4:3') {
-            template.framePath = this.frameConfig.path;
-            template.frameWidth = this.frameConfig.width;
-            template.frameHeight = this.frameConfig.height;
-            template.photoHoles = this.frameConfig.photoHoles;
-            template.adjustments = this.frameConfig.adjustments;
+    addFrameConfigToTemplate(template, aspectRatio, frameId = 'frame-v1') {
+        const frameConfig = this.getFrameConfig(frameId);
+
+        // Validasi bahwa frame memiliki aspectRatio yang sesuai
+        if (!frameConfig) {
+            console.warn(`[FrameHandler] Frame config dengan ID '${frameId}' tidak ditemukan`);
+            return;
         }
+
+        // Jika frame tidak memiliki property aspectRatio, skip (untuk backward compatibility)
+        if (!frameConfig.aspectRatio) {
+            console.warn(`[FrameHandler] Frame ${frameConfig.id} (${frameConfig.name}) tidak memiliki property aspectRatio, akan di-skip`);
+            return;
+        }
+
+        // Validasi bahwa aspectRatio frame sesuai dengan yang diminta
+        if (frameConfig.aspectRatio.toLowerCase() !== aspectRatio.toLowerCase()) {
+            console.warn(`[FrameHandler] Frame ${frameConfig.id} (${frameConfig.name}) memiliki aspectRatio '${frameConfig.aspectRatio}' yang tidak sesuai dengan '${aspectRatio}'`);
+            return;
+        }
+
+        // Tambahkan config ke template jika validasi berhasil
+        template.frameId = frameConfig.id;
+        template.frameName = frameConfig.name;
+        template.framePath = frameConfig.path;
+        template.frameWidth = frameConfig.width;
+        template.frameHeight = frameConfig.height;
+        template.photoHoles = frameConfig.photoHoles;
+        template.adjustments = frameConfig.adjustments;
+        template.aspectRatio = frameConfig.aspectRatio; // Simpan juga aspectRatio untuk referensi
     }
 
     /**
@@ -58,15 +175,26 @@ class FrameHandler {
      */
     generateSimpleTemplatePreview(template) {
         if (template.layout === 'custom-vertical' && template.framePath) {
+            // Add error handling for image load failure
+            const framePath = template.framePath;
+            const frameName = template.frameName || 'Frame';
+
             return `
                 <div class="relative mx-auto" style="width: 80px; height: 60px; aspect-ratio: 4/3;">
-                    <img src="${template.framePath}" alt="Frame Preview"
+                    <img src="${framePath}"
+                         alt="${frameName} Preview"
                          class="w-full h-full object-contain"
-                         style="display: block;">
+                         style="display: block;"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2780%27 height=%2760%27%3E%3Crect fill=%27%23f3f4f6%27 width=%2780%27 height=%2760%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23999%27 font-size=%2710%27%3E${frameName}%3C/text%3E%3C/svg%3E'; console.error('Failed to load frame image: ${framePath}');">
                 </div>
             `;
         }
-        return '';
+        // Fallback if no frame path
+        return `
+            <div class="relative mx-auto bg-gray-100 rounded" style="width: 80px; height: 60px; aspect-ratio: 4/3;">
+                <div class="flex items-center justify-center h-full text-xs text-gray-500">Template</div>
+            </div>
+        `;
     }
 
     /**
