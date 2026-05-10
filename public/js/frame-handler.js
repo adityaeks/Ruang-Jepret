@@ -25,58 +25,40 @@ class FrameHandler {
             }
         };
 
-        // Multiple frame configurations dengan ukuran yang sama
-        //
-        // CARA MENAMBAHKAN FRAME VERSI BARU:
-        // 1. Simpan file PNG frame baru di folder public/frames/
-        // 2. Pastikan ukuran frame PNG sama dengan frame yang ada (867x2048)
-        // 3. Pastikan posisi photo holes (transparent areas) sama dengan frame yang ada
-        // 4. Uncomment dan tambahkan konfigurasi frame baru di bawah ini
-        // 5. Ganti 'frame-v2' dengan ID unik, 'Frame Versi 2' dengan nama, dan path dengan lokasi file PNG
-        //
-        // Contoh:
-        // 'frame-v2': {
-        //     id: 'frame-v2',
-        //     name: 'Frame Versi 2',
-        //     path: '/frames/frame-4x3-3photos-v2.png',
-        //     ...sharedConfig  // Menggunakan shared config (dimensi dan photoHoles yang sama)
-        // }
-        this.frameConfigs = {
-            'frame-v1': {
-                id: 'frame-v1',
-                name: 'Default',
-                path: '/frames/frame-4x3-3photos.png',
-                aspectRatio: '4:3', // Rasio foto yang didukung oleh frame ini
-                ...sharedConfig
-            },
-            // Uncomment dan sesuaikan untuk menambahkan frame versi lain:
-            // ,
-            'frame-v2': {
-                id: 'frame-v2',
-                name: 'Bear v1',
-                path: '/frames/frame-4x3-3photos-v2.png',
-                aspectRatio: '4:3', // Rasio foto yang didukung oleh frame ini
-                ...sharedConfig
-            }
-            // Contoh frame dengan rasio lain:
-            // 'frame-v3': {
-            //     id: 'frame-v3',
-            //     name: 'Frame Versi 3',
-            //     path: '/frames/frame-1x1-3photos.png',
-            //     aspectRatio: '1:1', // Frame untuk rasio 1:1
-            //     ...sharedConfig1x1
-            // },
-            // 'frame-v4': {
-            //     id: 'frame-v4',
-            //     name: 'Frame Versi 4',
-            //     path: '/frames/frame-16x9-3photos.png',
-            //     aspectRatio: '16:9', // Frame untuk rasio 16:9
-            //     ...sharedConfig16x9
-            // }
-        };
+        this.frameConfigs = {};
+
+        // Load frames from database if available (passed via window.dbFrames)
+        if (window.dbFrames && window.dbFrames.length > 0) {
+            window.dbFrames.forEach(frame => {
+                // If frame has different qty_photo, we might need different photoHoles,
+                // but for now we map to sharedConfig as it's the only one defined.
+                // You can expand this logic to dynamically generate holes based on qty_photo
+                this.frameConfigs['frame-' + frame.id] = {
+                    id: 'frame-' + frame.id,
+                    name: frame.name,
+                    category: frame.category || 'free',
+                    path: '/frames/' + frame.image,
+                    aspectRatio: frame.rasio || '4:3',
+                    qtyPhoto: frame.qty_photo || 3,
+                    ...sharedConfig
+                };
+            });
+        } else {
+            // Fallback backward compatibility
+            this.frameConfigs = {
+                'frame-v1': {
+                    id: 'frame-v1',
+                    name: 'Default',
+                    path: '/frames/frame-4x3-3photos.png',
+                    aspectRatio: '4:3',
+                    qtyPhoto: 3,
+                    ...sharedConfig
+                }
+            };
+        }
 
         // Default frame (untuk backward compatibility)
-        this.frameConfig = this.frameConfigs['frame-v1'];
+        this.frameConfig = Object.values(this.frameConfigs)[0];
 
         // Log initialization for debugging
         console.log('[FrameHandler] Initialized with frames:', Object.keys(this.frameConfigs).map(id => ({
@@ -160,6 +142,7 @@ class FrameHandler {
         // Tambahkan config ke template jika validasi berhasil
         template.frameId = frameConfig.id;
         template.frameName = frameConfig.name;
+        template.category = frameConfig.category;
         template.framePath = frameConfig.path;
         template.frameWidth = frameConfig.width;
         template.frameHeight = frameConfig.height;
@@ -178,20 +161,25 @@ class FrameHandler {
             // Add error handling for image load failure
             const framePath = template.framePath;
             const frameName = template.frameName || 'Frame';
+            
+            // Calculate aspect ratio for the container
+            const aspectStyle = (template.frameWidth && template.frameHeight) 
+                ? `aspect-ratio: ${template.frameWidth} / ${template.frameHeight};` 
+                : 'aspect-ratio: 2 / 5;';
 
             return `
-                <div class="relative mx-auto" style="width: 80px; height: 60px; aspect-ratio: 4/3;">
+                <div class="relative mx-auto bg-gray-100 rounded-sm shadow-sm overflow-hidden flex items-center justify-center" style="height: 140px; ${aspectStyle}">
                     <img src="${framePath}"
                          alt="${frameName} Preview"
-                         class="w-full h-full object-contain"
+                         class="w-full h-full object-cover"
                          style="display: block;"
-                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2780%27 height=%2760%27%3E%3Crect fill=%27%23f3f4f6%27 width=%2780%27 height=%2760%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23999%27 font-size=%2710%27%3E${frameName}%3C/text%3E%3C/svg%3E'; console.error('Failed to load frame image: ${framePath}');">
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27100%25%27 height=%27100%25%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23999%27 font-size=%2710%27%3E${frameName}%3C/text%3E%3C/svg%3E'; console.error('Failed to load frame image: ${framePath}');">
                 </div>
             `;
         }
         // Fallback if no frame path
         return `
-            <div class="relative mx-auto bg-gray-100 rounded" style="width: 80px; height: 60px; aspect-ratio: 4/3;">
+            <div class="relative mx-auto bg-gray-100 rounded shadow-sm" style="height: 140px; aspect-ratio: 2/5;">
                 <div class="flex items-center justify-center h-full text-xs text-gray-500">Template</div>
             </div>
         `;

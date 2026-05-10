@@ -1087,11 +1087,28 @@ class PhotoBooth {
 
 
     createTemplateCard(template, index) {
+        const isPremium = template.category && template.category.toLowerCase() === 'premium';
+        
         const card = document.createElement('div');
-        card.className = 'bg-gray-50 rounded-xl border-2 border-gray-200 hover:border-black transition-all duration-300 cursor-pointer template-card p-4';
+        
+        let cardClasses = 'rounded-xl border-2 transition-all duration-300 template-card p-4 relative overflow-hidden ';
+        if (isPremium) {
+            cardClasses += 'bg-gray-100 border-gray-200 cursor-not-allowed';
+        } else {
+            cardClasses += 'bg-gray-50 border-gray-200 hover:border-black cursor-pointer';
+        }
+        
+        card.className = cardClasses;
         card.setAttribute('data-template-index', index);
 
         card.innerHTML = `
+            ${isPremium ? `
+            <div class="absolute top-3 right-3 z-10 bg-black text-white p-1.5 rounded-full shadow-md" title="Premium">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+            </div>` : ''}
+            
             <div class="text-center">
                 <div class="mb-3">
                     ${this.generateSimpleTemplatePreview(template)}
@@ -1101,10 +1118,16 @@ class PhotoBooth {
             </div>
         `;
 
-        // Add click event
-        card.addEventListener('click', () => {
-            this.selectTemplateCard(template, index);
-        });
+        if (isPremium) {
+            card.addEventListener('click', () => {
+                this.showNotification('Template ini khusus pengguna Premium.', 'error');
+            });
+        } else {
+            // Add click event
+            card.addEventListener('click', () => {
+                this.selectTemplateCard(template, index);
+            });
+        }
 
         return card;
     }

@@ -364,6 +364,9 @@
         </div>
     </div>
 
+    <script>
+        window.dbFrames = @json($frames);
+    </script>
     <script src="{{ asset('js/frame-handler.js') }}"
         onerror="console.error('Failed to load frame-handler.js'); window.FrameHandler = undefined;"></script>
 

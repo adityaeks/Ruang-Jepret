@@ -17,6 +17,13 @@ class Controller extends BaseController
 
     public function booth()
     {
-        return view('booth');
+        $frames = \App\Models\Frame::all();
+        return view('booth', compact('frames'));
+    }
+
+    public function frame()
+    {
+        $frames = \App\Models\Frame::all();
+        return view('frame', compact('frames'));
     }
 }

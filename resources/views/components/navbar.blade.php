@@ -15,6 +15,10 @@
                         <a href="{{ route('booth') }}"
                             class="text-black hover:text-gray-600 transition-colors duration-200">Booth</a>
                     </li>
+                    <li>
+                        <a href="{{ route('frame') }}"
+                            class="text-black hover:text-gray-600 transition-colors duration-200">Frame</a>
+                    </li>
                     {{-- <li><a href="{{ route('gallery') }}">Galeri</a></li> --}}
                 </ul>
             </div>
