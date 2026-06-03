@@ -7,41 +7,40 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('admin.login');
-    }
-
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/admin/dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/admin/login');
-    }
-
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $totalFrames = \App\Models\Frame::count();
+        $premiumFrames = \App\Models\Frame::where('category', 'premium')->count();
+        $freeFrames = \App\Models\Frame::where('category', '!=', 'premium')->orWhereNull('category')->count();
+        $totalUsers = \App\Models\User::count();
+
+        // Category breakdown for chart
+        $categoryBreakdown = \App\Models\Frame::selectRaw('COALESCE(category, "uncategorized") as cat, count(*) as total')
+            ->groupBy('cat')
+            ->pluck('total', 'cat');
+
+        // Ratio distribution
+        $ratioDistribution = \App\Models\Frame::selectRaw('COALESCE(rasio, "unknown") as ratio, count(*) as total')
+            ->groupBy('ratio')
+            ->pluck('total', 'ratio');
+
+        // Recent frames
+        $recentFrames = \App\Models\Frame::latest()->take(5)->get();
+
+        // Frames added this month
+        $framesThisMonth = \App\Models\Frame::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        return view('admin.dashboard', compact(
+            'totalFrames',
+            'premiumFrames',
+            'freeFrames',
+            'totalUsers',
+            'categoryBreakdown',
+            'ratioDistribution',
+            'recentFrames',
+            'framesThisMonth'
+        ));
     }
 }
